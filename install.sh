@@ -3,7 +3,7 @@
 #  equium-fast-miner  —  one-command installer for Linux VPS
 #
 #  Usage:
-#    curl -sSfL https://raw.githubusercontent.com/foxylmao/equim-fast/equium/main/install.sh | bash
+#    curl -sSfL https://raw.githubusercontent.com/foxylmao/equium-master/equium/main/install.sh | bash
 #
 #  Or, after cloning:
 #    bash install.sh
@@ -116,7 +116,7 @@ else
         git -C "$REPO_DIR" pull --ff-only
     else
         info "Cloning equium-fast-miner to $REPO_DIR..."
-        git clone https://github.com/foxylmao/equim-fast/equium.git "$REPO_DIR"
+        git clone https://github.com/foxylmao/equium-master/equium.git "$REPO_DIR"
     fi
 fi
 success "Source ready at $REPO_DIR"
