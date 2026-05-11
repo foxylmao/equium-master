@@ -1,0 +1,11 @@
+# Enable WebAssembly SIMD (128-bit) when building for the browser. The
+# `blake2b_simd` crate (used transitively by our equihash-core solver)
+# has a `wasm32_simd` codepath gated on `target_feature = "simd128"` —
+# without this flag we fall back to portable scalar BLAKE2b and lose
+# roughly 2-3× of solver throughput in the inner loop.
+#
+# All current browsers support WASM SIMD (Chrome 91+, Firefox 89+,
+# Safari 16.4+). Older browsers can't load the module at all, which is
+# preferable to running a slower fallback that masks the requirement.
+[target.wasm32-unknown-unknown]
+rustflags = ["-C", "target-feature=+simd128"]

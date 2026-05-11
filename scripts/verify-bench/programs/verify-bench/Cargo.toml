@@ -1,0 +1,22 @@
+[package]
+name = "verify-bench"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "M0 GO/NO-GO benchmark: measure on-chain Equihash verification CU cost"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "verify_bench"
+
+[features]
+default = []
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = { workspace = true }
+equihash-core = { path = "../../../../crates/equihash-core", default-features = false }

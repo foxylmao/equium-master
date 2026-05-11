@@ -1,0 +1,201 @@
+:root {
+  color-scheme: dark;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --bg: #0a0d12;
+  --panel: #11161d;
+  --panel-elev: #161c25;
+  --border: #232a35;
+  --text: #d8e1ee;
+  --muted: #5d6b7e;
+  --accent: #7dd3fc;
+  --accent-dim: #3b82f6;
+  --good: #4ade80;
+  --bad: #f87171;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+body {
+  background: radial-gradient(ellipse at top, #1a2332 0%, var(--bg) 60%);
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.brand-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.brand-text {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.brand .ticker { color: var(--muted); font-size: 14px; font-weight: 500; }
+
+.tagline {
+  color: var(--muted);
+  font-size: 14px;
+  margin: -16px 0 32px;
+  line-height: 1.5;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.panel-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+@media (min-width: 540px) {
+  .stat-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stat .label {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.stat .value {
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.stat .value.good { color: var(--good); }
+.stat .value.bad { color: var(--bad); }
+.stat .value.dim { color: var(--muted); font-weight: 400; font-size: 14px; }
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 100ms;
+}
+.button:hover:not(:disabled) {
+  background: var(--accent);
+  color: var(--bg);
+}
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.button.primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+.button.primary:hover:not(:disabled) {
+  background: #a7e7fd;
+  border-color: #a7e7fd;
+}
+.button.danger {
+  border-color: var(--bad);
+  color: var(--bad);
+}
+.button.danger:hover:not(:disabled) {
+  background: var(--bad);
+  color: var(--bg);
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.log {
+  background: var(--panel-elev);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  max-height: 220px;
+  overflow-y: auto;
+  font-feature-settings: "tnum";
+}
+.log .line {
+  padding: 2px 0;
+  color: var(--muted);
+}
+.log .line.ok { color: var(--good); }
+.log .line.err { color: var(--bad); }
+.log .line.info { color: var(--text); }
+.log .line .ts { color: var(--muted); margin-right: 10px; }
+
+.kvp {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 8px;
+  font-size: 13px;
+  padding: 4px 0;
+}
+.kvp .k { color: var(--muted); }
+.kvp .v { font-feature-settings: "tnum"; word-break: break-all; }
+
+.wallet-adapter-button {
+  font-family: inherit !important;
+  height: 40px !important;
+  padding: 0 18px !important;
+  background: transparent !important;
+  border: 1px solid var(--accent) !important;
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+}
+.wallet-adapter-button:not([disabled]):hover {
+  background: var(--accent) !important;
+  color: var(--bg) !important;
+}

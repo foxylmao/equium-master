@@ -1,0 +1,39 @@
+[Unit]
+Description=Equium ($EQM) CPU miner — optimised Equihash solver
+Documentation=https://equium.xyz/docs
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# ─── Edit these ──────────────────────────────────────────────────────────────
+# Your Solana keypair JSON (generate with: solana-keygen new -o /etc/equium/wallet.json)
+Environment="KEYPAIR=/etc/equium/wallet.json"
+
+# RPC endpoint — a free Helius key gives 50× better throughput than public nodes
+# Get one at https://www.helius.dev
+Environment="RPC_URL=https://api.mainnet-beta.solana.com"
+
+# Solver threads — 0 = use all CPU cores (recommended)
+Environment="THREADS=0"
+# ─────────────────────────────────────────────────────────────────────────────
+
+ExecStart=/usr/local/bin/equium-miner \
+    --rpc-url ${RPC_URL} \
+    --keypair ${KEYPAIR} \
+    --threads ${THREADS}
+
+Restart=on-failure
+RestartSec=15
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=equium-miner
+
+# Resource limits
+MemoryMax=4G
+Nice=5
+# CPUAffinity=0-3   # optional: pin to specific cores
+
+[Install]
+WantedBy=multi-user.target

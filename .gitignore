@@ -1,0 +1,55 @@
+# Rust / Cargo
+target/
+**/target/
+Cargo.lock.bak
+*.rs.bk
+
+# Anchor
+.anchor/
+test-ledger/
+.crates/
+.bin/
+*.so
+
+# Solana
+**/*.so
+
+# Node
+node_modules/
+dist/
+.pnp.*
+.yarn/cache
+.yarn/install-state.gz
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+*.keypair.json
+keypairs/
+# Solana keypair JSON files (32-byte secret arrays). Never commit —
+# anything matching `<base58-pubkey>.json` is presumed private.
+*EQM.json
+*EQm.json
+*eqm.json
+*EqM.json
+1Mhv*.json
+mint-keypair.json
+
+# WASM build outputs
+pkg/
+**/pkg/
+
+# Web miner build outputs
+clients/web-miner/app/dist/
+clients/web-miner/app/.env.local
+clients/web-miner/app/.env.development.local
+clients/web-miner/app/.env.production.local
+.agents/
+skills-lock.json

@@ -1,0 +1,29 @@
+[package]
+name = "equium-cli-miner"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Reference CLI miner for Equium ($EQM)"
+
+[[bin]]
+name = "equium-miner"
+path = "src/main.rs"
+
+[dependencies]
+equihash-core = { path = "../../crates/equihash-core", features = ["solver"] }
+equium = { path = "../../programs/equium", features = ["no-entrypoint"] }
+anchor-client = "0.31.1"
+anchor-lang = { workspace = true }
+anchor-spl = { workspace = true }
+solana-sdk = "2.1"
+solana-client = "2.1"
+solana-program = { workspace = true }
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+log = "0.4"
+env_logger = "0.11"
+rand = { workspace = true }
+hex = { workspace = true }
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros"] }
+num_cpus = "1"
+crossbeam-channel = "0.5"

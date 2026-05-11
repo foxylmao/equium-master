@@ -1,0 +1,57 @@
+[workspace]
+
+[package]
+name = "equium-desktop"
+version = "0.1.0"
+edition = "2021"
+description = "Equium ($EQM) reference desktop miner — Tauri 2"
+license = "Apache-2.0"
+
+[lib]
+name = "equium_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-clipboard-manager = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+tauri-plugin-store = "2"
+
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+log = "0.4"
+env_logger = "0.11"
+
+# Equium-specific
+equihash-core = { path = "../../../crates/equihash-core", features = ["solver"] }
+equium = { path = "../../../programs/equium", features = ["no-entrypoint"] }
+anchor-lang = "0.31.1"
+anchor-spl = "0.31.1"
+solana-sdk = "2.1"
+solana-client = "2.1"
+
+# Crypto for password-encrypted keystore
+argon2 = "0.5"
+aes-gcm = "0.10"
+rand = "0.8"
+bs58 = "0.5"
+hex = "0.4"
+
+# Async
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time"] }
+parking_lot = "0.12"
+
+# Force openssl-sys (pulled in transitively by solana-client → reqwest) to
+# build OpenSSL from source. Without this, Windows runners can't find a
+# system OpenSSL and the build fails. Adds ~30s to first build but makes
+# CI reproducible across macOS/Windows/Linux without per-runner setup.
+openssl-sys = { version = "0.9", features = ["vendored"] }
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

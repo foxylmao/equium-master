@@ -1,0 +1,42 @@
+[package]
+name = "equihash-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Shared Equihash solver + verifier + challenge derivation for Equium"
+
+[lib]
+crate-type = ["rlib"]
+
+[features]
+default = ["std"]
+std = ["sha2/std", "blake2b_simd/std", "equihash/std"]
+# Pure-Rust Wagner solver. Implies `std`. Enable from native binaries / tests
+# (and eventually the WASM browser miner). Safe to enable anywhere `std` is
+# available — there's no FFI/C build, so SBF is the only target this excludes.
+solver = ["std", "dep:hex", "dep:serde", "dep:serde_json", "dep:rand"]
+
+[dependencies]
+equihash = { workspace = true }
+blake2b_simd = { workspace = true }
+sha2 = { workspace = true }
+hex = { workspace = true, optional = true }
+serde = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
+rand = { workspace = true, optional = true }
+
+[dev-dependencies]
+hex = "0.4"
+
+# wasm32 builds: enable getrandom's `js` feature so the transitive `rand`
+# dep finds `crypto.getRandomValues` in the browser. Native targets ignore.
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+getrandom = { version = "0.2", features = ["js"] }
+
+[[example]]
+name = "gen_bench_solution"
+required-features = ["solver"]
+
+[[example]]
+name = "solve_block"
+required-features = ["solver"]
