@@ -105,12 +105,15 @@ if (-not (Test-Path "$vcpkgDir\vcpkg.exe")) {
     info "Собираю vcpkg..."
     & "$vcpkgDir\bootstrap-vcpkg.bat" -disableMetrics
 }
-$opensslList = (& "$vcpkgDir\vcpkg.exe" list 2>&1) -join " "
-$opensslInstalled = $opensslList -match "openssl"
-if (-not $opensslInstalled) {
+
+$opensslLib = "$vcpkgDir\installed\x64-windows-static\lib\libssl.lib"
+if (-not (Test-Path $opensslLib)) {
     info "Устанавливаю OpenSSL (займет ~5 минут)..."
+    $ErrorActionPreference = "Continue"
     & "$vcpkgDir\vcpkg.exe" install openssl:x64-windows-static
+    $ErrorActionPreference = "Stop"
 }
+
 $opensslDir = "$vcpkgDir\installed\x64-windows-static"
 $env:OPENSSL_DIR    = $opensslDir
 $env:OPENSSL_STATIC = "1"
